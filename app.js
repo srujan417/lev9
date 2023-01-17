@@ -8,7 +8,6 @@ const path = require("path");
 const { Todo } = require("./models");
 // eslint-disable-next-line no-unused-vars
 const todo = require("./models/todo");
-// eslint-disable-next-line no-undef
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("shh! some secret string"));
@@ -37,6 +36,7 @@ app.get("/", async (request, response) => {
 });
 
 app.get("/todos", async (request, response) => {
+  // defining route to displaying message
   console.log("Todo list");
   try {
     const todoslist = await Todo.findAll();
@@ -57,12 +57,13 @@ app.get("/todos/:id", async function (request, response) {
 });
 
 app.post("/todos", async (request, response) => {
-  console.log("creating a new todo", request.body);
+  console.log("creating new todo", request.body);
   try {
+    // eslint-disable-next-line no-unused-vars
     await Todo.addTodo({
       title: request.body.title,
       dueDate: request.body.dueDate,
-      completed: false,
+      commpleted: false,
     });
     return response.redirect("/");
   } catch (error) {
@@ -70,9 +71,9 @@ app.post("/todos", async (request, response) => {
     return response.status(422).json(error);
   }
 });
-
+//PUT https://mytodoapp.com/todos/123/markAscomplete
 app.put("/todos/:id", async (request, response) => {
-  console.log("Mark a Todo as completed:", request.params.id);
+  console.log("Mark Todo as completed:", request.params.id);
   const todo = await Todo.findByPk(request.params.id);
   try {
     const updatedtodo = await todo.setCompletionStatus(request.body.completed);
@@ -83,7 +84,7 @@ app.put("/todos/:id", async (request, response) => {
   }
 });
 app.delete("/todos/:id", async (request, response) => {
-  console.log("Delete a todo with ID:", request.params.id);
+  console.log("delete a todo with ID:", request.params.id);
   try {
     await Todo.remove(request.params.id);
     return response.json({ success: true });
