@@ -5,9 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <meta name="csrf-token" content="<%= csrfToken %>">
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>My Todo Manager</title>
+        <link href="./css/style.css" rel="stylesheet">
+        <title>Srujan Todo Manager</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link href="./css/style.css" rel="stylesheet">
         <script>
           const token = document.querySelector("meta[name='csrf-token']").getAttribute("content")
           const updateTodo = (id) => {
